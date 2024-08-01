@@ -1,0 +1,92 @@
+# Environment settings
+env:
+  headless: false
+  episode_length: 100
+  use_domain_randomization: true
+
+# Robot settings
+robot:
+  urdf_path: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/task_reach_door/urdf/kortex_description/arms/gen3/7dof/urdf/output.urdf"
+  initial_joint_angles: [200, 10, -3.5, -140, 20, 35, 0]
+  end_effector_link_index: 11
+  base_height: 0.0
+  joint_limits:
+    lower: [-6.283, -2.24, -6.283, -2.57, -6.283, -2.09, -6.283]
+    upper: [6.283, 2.24, 6.283, 2.57, 6.283, 2.09, 6.283]
+
+# Camera settings
+camera:
+  width: 320
+  height: 180
+  link_index: 10
+  up_vector: [0, 1, 0]
+  forward_vector: [0, 0, 1]
+  projection_matrix:
+    fov: 45
+    aspect: 1.0
+    near_val: 0.01
+    far_val: 100.0
+
+# Target positions
+target:
+  pos1: [0.750, -0.080, 1.011]
+  pos2: [0.750, -0.040, 1.011]
+  pos3: [0.750, -0.150, 1.011]
+
+# Scene settings
+scene:
+  table_urdf: "table/table.urdf"
+  door_urdf: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/task_reach_door/urdf/models/door_handle/custom_door.urdf"
+  plane_urdf: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/task_reach_door/urdf/models/door_handle/plane.urdf"
+  table_height: 0.6
+  table_start_pos: [-0.4, 0, 0]
+  door_start_pos: [0.90, 0.250, 0]
+
+# Domain randomization
+domain_randomization:
+  color_variation_range: 0.09
+  initial_pose_variation: [-0.04, 0.04]
+
+# Base colors
+colors:
+  lever: [0.8, 0.8, 0.8, 1]  # Grey
+  door: [0.72, 0.52, 0.35, 1]  # Wood
+  protrusion: [0, 0.5, 0, 1]  # Green
+  robot: [0, 0, 0, 1]  # Black
+
+# Visual shape indices for color randomization
+visual_shape:
+  lever: 0
+  door: -1
+  protrusion: 2
+  knob: 1
+
+# Debug visualization
+debug:
+  axis_length: 0.1
+  axis_width: 2
+
+# Reward settings
+reward:
+  success_threshold: 0.030
+  success_reward: 15
+  collision_penalty: -5
+  distance_reward_multiplier: 10
+  default_success_reward: -0.3
+
+# Action settings
+action:
+  lower_limits: [-0.02, -0.02, -0.02]
+  upper_limits: [0.02, 0.02, 0.02]
+
+# Observation space settings
+observation:
+  image_shape: [3, 180, 320]
+  vector_low: [0.4, -0.3, -0.1, -6.283, -2.24, -6.283, -2.57, -6.283, -2.09, -6.283]
+  vector_high: [0.9, 0.3, 1.5, 6.283, 2.24, 6.283, 2.57, 6.283, 2.09, 6.283]
+
+# State calculation
+state:
+  end_effector_offset: 0.6
+  clip_low: [0.4, -0.3, -0.1]
+  clip_high: [0.9, 0.3, 1.5]

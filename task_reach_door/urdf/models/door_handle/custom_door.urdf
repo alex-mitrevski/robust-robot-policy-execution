@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<robot name="simple_door">
+
+  <!-- Door link -->
+  <link name="door">
+    <visual>
+      <origin xyz="0 0 1.25" rpy="0 0 0"/> <!-- Centers the door in the Z-axis, assuming its height is 2.5m -->
+      <geometry>
+        <box size="0.05 1.0 2.5"/> <!-- Placeholder dimensions for the door: thickness x width x height -->
+      </geometry>
+       <material name="wood"> 
+        <color rgba="0.76 0.69 0.57 1"/> <!-- Example wood color -->
+       </material> 
+    </visual>
+    <collision>
+      <origin xyz="0 0 1.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 1.0 2.5"/> <!-- Same size as visual for simplicity -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 1.25" rpy="0 0 0"/>
+      <mass value="30.0"/> <!-- Example mass in kg -->
+      <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/> <!-- Example inertia, replace with real values -->
+    </inertial>
+  </link>
+
+  <!-- Handle link -->
+  <link name="handle">
+    <visual>
+      <origin xyz="-0.03 -0.06 0.5" rpy="-3.14 0 0"/> <!-- Placed 1m above the base of the door -->
+      <geometry>
+        <mesh filename="door_handle.obj" scale="1 1 1"/> <!-- Your STL file for the handle -->
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.03 -0.06 0.5" rpy="-3.14 0 0"/>
+      <geometry>
+        <mesh filename="door_handle.obj" scale="1 1 1"/> <!-- Your STL file for the collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.03 -0.06 0.5" rpy="-3.14 0 0"/>
+      <mass value="0.5"/> <!-- Example mass of the handle in kg -->
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/> <!-- Placeholder inertia values -->
+    </inertial>
+  </link>
+
+  <!-- Fixed joint for the handle, assuming the handle is directly on the door -->
+  <joint name="handle_joint" type="fixed">
+    <parent link="door"/>
+    <child link="handle"/>
+    <origin xyz="0.0 -0.35 0.5" rpy="0 0 0"/> <!-- Exact position of the handle on the door -->
+  </joint>
+
+  <!-- knob link -->
+  <link name="knob">
+    <visual>
+      <origin xyz="-0.03 -0.06 0.5" rpy="-3.14 0 1.5708"/> <!-- Placed 1m above the base of the door -->
+      <geometry>
+        <mesh filename="knob.obj" scale="1 1 1"/> <!-- Your STL file for the handle -->
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.03 -0.06 0.5" rpy="-3.14 0 1.5708"/>
+      <geometry>
+        <mesh filename="knob.obj" scale="1 1 1"/> <!-- Your STL file for the collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.03 -0.06 0.5" rpy="-3.14 0 1.5708"/>
+      <mass value="0.5"/> <!-- Example mass of the handle in kg -->
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/> <!-- Placeholder inertia values -->
+    </inertial>
+  </link>
+
+  <!-- Fixed joint for knobs -->
+  <joint name="knob_joint" type="fixed">
+    <parent link="door"/>
+    <child link="knob"/>
+    <origin xyz="0.005 -0.35 0.42" rpy="0 0 0"/> <!-- Exact position of the handle on the door -->
+  </joint>
+
+  <!-- knob link -->
+  <link name="green_protrusion">
+    <visual>
+      <origin xyz="-0.01 -0.06 0.5" rpy="-3.14 0 1.5708"/> <!-- Placed 1m above the base of the door -->
+      <geometry>
+        <mesh filename="green_protrusion.obj" scale="1 1 1"/> <!-- Your STL file for the handle -->
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.01 -0.06 0.5" rpy="-3.14 0 1.5708"/>
+      <geometry>
+        <mesh filename="green_protrusion.obj" scale="1 1 1"/> <!-- Your STL file for the collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.01 -0.06 0.5" rpy="-3.14 0 1.5708"/>
+      <mass value="0.5"/> <!-- Example mass of the handle in kg -->
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/> <!-- Placeholder inertia values -->
+    </inertial>
+  </link>
+
+  <!-- Fixed joint for knobs -->
+  <joint name="green_protrusion_joint" type="fixed">
+    <parent link="door"/>
+    <child link="green_protrusion"/>
+    <origin xyz="0.008 -0.02 0.65" rpy="0 0 0"/> <!-- Exact position of the handle on the door -->
+  </joint>
+
+
+
+
+</robot>

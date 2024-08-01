@@ -1,0 +1,36 @@
+# vmp_trainer_config.yaml
+
+# File paths
+model_save_path: "./models/GC/PPO_policy_with_joints_with_DR/"
+
+# Training parameters
+total_timesteps: 100010
+episode_length: 100
+batch_size: 25
+learning_rate: 1.0e-4
+n_steps: 50
+n_epochs: 20
+gamma: 0.95
+gae_lambda: 0.9
+vf_coef: 0.5
+max_grad_norm: 0.5
+ent_coef: 0.0
+
+# Environment settings
+headless: false
+
+# Checkpoint settings
+checkpoint_save_freq: 80000
+
+evaluation:
+  episode_length: 20
+  total_timesteps: 500  # 25 * 20
+
+  #without domain randomization
+  # model_path: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/pybullet_with_SB3/models/GC/PPO_policy_with_joints_without_DR/fd7d95_PPO2/gpu_100000_steps.zip"
+
+  #with domain randomization
+  model_path: "./saved_models/with_DR/bb6575_PPO9_no_entropy/gpu_100000_steps.zip"
+  n_eval_episodes: 25
+  deterministic: false
+  verbose: 2

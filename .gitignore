@@ -1,0 +1,6 @@
+anomaly_detection/datasets/train_n_5_batach_1_2_3/*
+anomaly_detection/checkpoints/checkpoints_ubuntu22/epoch=99-step=2000.ckpt
+anomaly_detection/checkpoints/combined_dataset/epoch=99-step=2900.ckpt
+anomaly_detection/inference/dataset_threshold_estimation/*
+task_reach_door/saved_models/with_DR/*
+task_reach_door/saved_models/without_DR/*
