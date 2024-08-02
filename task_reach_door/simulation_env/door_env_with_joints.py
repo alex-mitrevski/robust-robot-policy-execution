@@ -1,3 +1,8 @@
+'''
+Reference: https://github.com/NJ-2020-thesis/PyRep/blob/feature/examples/vmp/vmp_environment.py
+
+'''
+
 import pybullet as p
 import pybullet_data
 import time
