@@ -1,3 +1,23 @@
+"""
+DINO Class to extract image features during deployment on the real robot.
+Uses pretrained checkpoint to extract features from the images.
+
+Dependencies:
+- Pytorch Lightning
+- Pytorch
+- lightly
+- torchvision
+
+Authors: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+References:
+This script is adapted from the official lightly documentation:
+https://docs.lightly.ai/self-supervised-learning/examples/dino.html
+
+"""
+
 import copy
 import ssl
 

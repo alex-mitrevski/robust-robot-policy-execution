@@ -1,3 +1,13 @@
+"""
+Utils to get statistics of the features and visualize the anomalies
+
+author: Bharath Santhanam
+email:bharathsanthanamdev@gmail.com
+organization: Hochschule Bonn-Rhein-Sieg
+
+
+"""
+
 import torch
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
@@ -61,21 +71,18 @@ def visualize_features(
     )
 
     # compute the nearest neighbour
-    # Initialize the NearestNeighbors model
     k = 5  # Number of neighbors to use for KNN
     nn_model = NearestNeighbors(n_neighbors=k)
 
     # Fit the model on the nominal features
-    nn_model.fit(nom_features_np)  # nom_features or normalized_nominal_features
+    nn_model.fit(nom_features_np)  # use normalized_nominal_features
 
     # Find the distance to and index of the k-th nearest neighbors in the nominal data for each test feature
-    distances, indices = nn_model.kneighbors(
-        anomalous_features_np
-    )  # anomalous_features  or normalized_anomalous_features
+    distances, indices = nn_model.kneighbors(anomalous_features_np)
 
-    # Use the distance to the k-th nearest neighbor as the anomaly score
+    # Use the distance to the  nearest neighbor as the anomaly score
     anomaly_scores = distances[:, 0]
-    # ipdb.set_trace()
+
     # plot anomaly scores
     title = anomalous_features_path.split("/")[-1].split(".")[0]
     plot_scores(
@@ -101,7 +108,7 @@ def plot_scores(
     save_path,
 ):
     # plot anomalous scores in the end
-    # Plotting the anomaly scores
+
     indices = range(len(anomaly_scores))
     plt.figure(figsize=(10, 6))
     plt.scatter(
@@ -120,30 +127,27 @@ def plot_scores(
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
     plt.tight_layout()
     plt.ylim(5, 55)
-    # Optionally, you can also draw a horizontal line representing the threshold to visually identify outliers
-    threshold = np.percentile(
-        anomaly_scores, 90
-    )  # Example: setting threshold at the 95th percentile
+
+    threshold = np.percentile(anomaly_scores, 90)
     plt.axhline(y=25, color="blue", linestyle="-", label="Threshold")
     plt.legend()
 
-    # Adding dotted vertical lines at indices 79 and 115
     if anom1_start is not None and anom1_end is not None:
         plt.axvline(
             x=anom1_start, color="red", linestyle=":", linewidth=2, label="Index 79"
-        )  # 36,60 for 2nd dataset , 79 for 1st
+        )
         plt.axvline(
             x=anom1_end, color="red", linestyle=":", linewidth=2, label="Index 115"
-        )  # 43,107 for 2nd dataset, 115 for 1st
+        )
 
     if anom2_start is not None and anom2_end is not None:
         plt.axvline(
             x=anom2_start, color="red", linestyle=":", linewidth=2, label="Index 79"
-        )  # 36,60 for 2nd dataset , 79 for 1st
+        )
         plt.axvline(
             x=anom2_end, color="red", linestyle=":", linewidth=2, label="Index 115"
-        )  # 43,107 for 2nd dataset, 115 for 1st
-    # plt.show()
+        )
+
     plt.savefig(os.path.join(save_path, title + ".png"))
 
 

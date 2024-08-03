@@ -1,3 +1,21 @@
+"""
+Implements a Gaussian Mixture Model (GMM) using the scikit-learn library.
+Uses 40 data points of [x, y, z] coordinates to fit the GMM and sample from it.
+The GMM is then used to sample a new [x, y, z] coordinate.
+
+The code is used in the recovery pipeline to sample a new [x, y, z] coordinate from the GMM.
+
+Dependencies:
+- numpy
+- scikit-learn
+
+References:
+
+- Scikit-learn GMM Documentation:
+https://scikit-learn.org/0.15/modules/generated/sklearn.mixture.GMM.html
+
+"""
+
 import numpy as np
 from sklearn.mixture import GaussianMixture
 import matplotlib.pyplot as plt
@@ -72,33 +90,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-"""
-    # Range of components to try
-    n_components_range = range(1, 10)
-    bics = []
-    aics = []
-
-for n_components in n_components_range:
-    gmm = GaussianMixture(n_components=n_components, random_state=0)
-    gmm.fit(data)
-    bics.append(gmm.bic(data))
-    aics.append(gmm.aic(data))
-
-# Plot the BIC scores
-plt.figure(figsize=(8, 4))
-plt.plot(n_components_range, bics, label="BIC")
-plt.plot(n_components_range, aics, label="AIC")
-plt.xlabel("Number of components")
-plt.ylabel("Information Criterion")
-plt.legend()
-plt.title("BIC / AIC for Choosing Optimal GMM Components")
-plt.show()
-
-# Selecting the number of components with the lowest BIC
-optimal_components_bic = n_components_range[np.argmin(bics)]
-optimal_components_aic = n_components_range[np.argmin(aics)]
-print("Optimal number of components according to BIC:", optimal_components_bic)
-print("Optimal number of components according to AIC:", optimal_components_aic)
-"""
