@@ -1,0 +1,68 @@
+from PIL import Image
+import numpy as np
+import ipdb
+import os
+# Function to resize an image to 100x100
+def resize_image(image_path):
+    with Image.open(image_path) as img:
+        return img.resize((100, 100))
+
+def generate_query_img(test_image_path=None):
+    """
+    Function to generate a query image with 5 nominal images on top and 1 test image at the bottom
+    Args:
+    test_image_path: str: Path to the test image
+    Returns:
+    final_image: PIL image: Image with 5 nominal images on top and 1 test image at the bottom
+
+    """
+    # Paths to the 5 nominal images
+    nominal_image_paths = [
+
+        './normal_images/image_1712160387560540200.jpg',
+        './normal_images/image_1712160794558246965.jpg' ,      
+        './normal_images/image_1712336024934913797.jpg',
+        './normal_images/image_1712336043598381065.jpg',
+        './normal_images/image_1712336650498251972.jpg'
+    ]
+    
+    # Resize nominal images
+    resized_nominal_images = [resize_image(path) for path in nominal_image_paths]
+
+    # Resize test image
+    resized_test_image = resize_image(test_image_path)
+
+    # Define gaps
+    horizontal_gap = 10
+    vertical_gap = 70
+
+    # Calculate total width and height for the final image
+    total_width = 5 * 100 + 4 * horizontal_gap
+    total_height = 2 * 100 + vertical_gap
+
+    # Create a new blank image with suffient area for 5 nominal images on top and 1 test image at the bottom
+    final_image = Image.new('RGB', (total_width, total_height),'white')
+
+    # Paste nominal images into the final image with gaps
+    for i, img in enumerate(resized_nominal_images):
+        final_image.paste(img, (i * (100 + horizontal_gap), 0))
+
+    # Paste the test image into the final image with a gap
+    final_image.paste(resized_test_image, ((total_width - 100) // 2, 100 + vertical_gap))
+
+    # Save the final image with test image path name
+    title=test_image_path.split("image_")[1]
+    
+    #save the final image in the save_test_images directory
+    final_image.save(os.path.join("./save_test_images",title))
+
+   
+    return final_image
+
+
+def main():
+    test_img_path="./test_images/1/image_1712160801713302366.jpg"
+    img= generate_query_img(test_img_path)
+    # ipdb.set_trace()
+if __name__=="__main__":
+    main()
