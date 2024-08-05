@@ -33,7 +33,7 @@ from PIL import Image as PILImage
 
 class Pose:
     def __init__(self):
-        self.current_state = None 
+        self.current_state = None
         self.enf_effector_subscriber = rospy.Subscriber(
             "/my_gen3/base_feedback",
             BaseCyclic_Feedback,

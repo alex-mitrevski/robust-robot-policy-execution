@@ -45,7 +45,7 @@ def inference_gemini(prompt, img):
     anomaly_score: int: Anomaly score for the test image 1 for anomaly and 0 for normaL
     """
 
-    #line directly from 
+    # line directly from
     # https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L33
     model = genai.GenerativeModel("gemini-1.5-flash")
     # line directly from https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L34
@@ -81,7 +81,7 @@ def main():
 
     dataset_dir = args.dataset_dir
     api_key = args.api_key
-    #line directly from https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L31
+    # line directly from https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L31
     genai.configure(api_key=api_key)
     # read the json file and get the anomalous frames for the current folder
 

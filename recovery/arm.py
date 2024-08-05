@@ -86,8 +86,8 @@ class Arm:
     # function directly from https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/open_door.py#L175
     def cb_action_topic(self, notif):
         self.last_action_notif_type = notif.action_event
-    
-    # function adapted from 
+
+    # function adapted from
     # https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/open_door.py#L221
     def move_to_pose(self, pose):
         """

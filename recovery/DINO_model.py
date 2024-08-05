@@ -44,7 +44,8 @@ from scipy.spatial import distance
 # Load the features
 from sklearn.neighbors import NearestNeighbors
 
-# the class DINO is directly from 
+
+# the class DINO is directly from
 #  https://github.com/lightly-ai/lightly/blob/master/examples/pytorch_lightning/dino.py
 class DINO(pl.LightningModule):
     def __init__(self):
