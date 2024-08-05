@@ -2,7 +2,7 @@
 Camera class for the Kinova Gen3 robot to get the camera data.
 
 Author: Bharath Santhanam
-Email: bahrathsanthanamdev@gmail.com
+Email: bharathsanthanamdev@gmail.com
 Organization: Hochschule Bonn-Rhein-Sieg
 
 

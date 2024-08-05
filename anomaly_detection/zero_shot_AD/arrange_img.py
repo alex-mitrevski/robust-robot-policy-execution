@@ -2,7 +2,7 @@
 
 Script to arrange images with 5 normal images on the top and 1 image on the bottom
 Author: Bharath Santhanam
-Email: bahrathsanthanamdev@gmail.com
+Email: bharathsanthanamdev@gmail.com
 Organization: Hochschule Bonn-Rhein-Sieg
 
 """
@@ -54,7 +54,7 @@ def generate_query_img(test_image_path=None):
     # Create a new blank image with suffient area for 5 nominal images on top and 1 test image at the bottom
     final_image = Image.new("RGB", (total_width, total_height), "white")
 
-    # Paste nominal images into the final image with gaps
+    # Paste nominal images with final image with gaps
     for i, img in enumerate(resized_nominal_images):
         final_image.paste(img, (i * (100 + horizontal_gap), 0))
 

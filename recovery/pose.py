@@ -33,7 +33,7 @@ from PIL import Image as PILImage
 
 class Pose:
     def __init__(self):
-        self.current_state = None  # Store the latest state here
+        self.current_state = None 
         self.enf_effector_subscriber = rospy.Subscriber(
             "/my_gen3/base_feedback",
             BaseCyclic_Feedback,
@@ -61,4 +61,4 @@ class Pose:
                 tool_pose_theta_z,
             ]
         else:
-            return None  # or raise an exception, or return a default value
+            return None

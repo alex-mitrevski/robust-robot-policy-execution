@@ -307,4 +307,4 @@ if __name__ == "__main__":
     except rospy.ROSInterruptException:
         rospy.loginfo("Recovery pipeline error")
     except Exception as e:
-        rospy.logerr(f"An error occurred: {str(e)}")
+        rospy.logerr(f"error occurred: {str(e)}")

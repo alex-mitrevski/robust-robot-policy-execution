@@ -16,7 +16,7 @@ Dependencies:
 - Google cloud account to get the API key
 
 References:
-This script is based on the github repo: google-gemini/generative-ai-python
+This script is based on the github repo: google-gemini/generative-ai-python. Specific lines referred are mentioned in the code.
 URL: https://github.com/google-gemini/generative-ai-python
 Accessed on: 5/8/2024
 
@@ -44,7 +44,11 @@ def inference_gemini(prompt, img):
     Returns:
     anomaly_score: int: Anomaly score for the test image 1 for anomaly and 0 for normaL
     """
+
+    #line directly from 
+    # https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L33
     model = genai.GenerativeModel("gemini-1.5-flash")
+    # line directly from https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L34
     response = model.generate_content([prompt, img], stream=True)
     response.resolve()
     # print(response.text)
@@ -77,6 +81,7 @@ def main():
 
     dataset_dir = args.dataset_dir
     api_key = args.api_key
+    #line directly from https://github.com/google-gemini/generative-ai-python/blob/42d952a2429fa72c0f2617d71eb9aa3f708b6867/google/generativeai/__init__.py#L31
     genai.configure(api_key=api_key)
     # read the json file and get the anomalous frames for the current folder
 

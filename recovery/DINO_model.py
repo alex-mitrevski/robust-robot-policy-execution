@@ -13,9 +13,9 @@ Email: bharathsanthanamdev@gmail.com
 Organization: Hochschule Bonn-Rhein-Sieg
 
 References:
-This script is adapted from the official lightly documentation:
+This script is fully adapted from the official lightly documentation:
 https://docs.lightly.ai/self-supervised-learning/examples/dino.html
-
+python script in the source github repo: https://github.com/lightly-ai/lightly/blob/master/examples/pytorch_lightning/dino.py
 """
 
 import copy
@@ -44,7 +44,8 @@ from scipy.spatial import distance
 # Load the features
 from sklearn.neighbors import NearestNeighbors
 
-
+# the class DINO is directly from 
+#  https://github.com/lightly-ai/lightly/blob/master/examples/pytorch_lightning/dino.py
 class DINO(pl.LightningModule):
     def __init__(self):
         super().__init__()

@@ -6,7 +6,7 @@ env:
 
 # Robot settings
 robot:
-  urdf_path: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/task_reach_door/urdf/kortex_description/arms/gen3/7dof/urdf/output.urdf"
+  urdf_path: "./urdf/kortex_description/arms/gen3/7dof/urdf/output.urdf"
   initial_joint_angles: [200, 10, -3.5, -140, 20, 35, 0]
   end_effector_link_index: 11
   base_height: 0.0
@@ -36,8 +36,8 @@ target:
 # Scene settings
 scene:
   table_urdf: "table/table.urdf"
-  door_urdf: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/task_reach_door/urdf/models/door_handle/custom_door.urdf"
-  plane_urdf: "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/task_execution/task_reach_door/urdf/models/door_handle/plane.urdf"
+  door_urdf: "./urdf/models/door_handle/custom_door.urdf"
+  plane_urdf: "./urdf/models/door_handle/plane.urdf"
   table_height: 0.6
   table_start_pos: [-0.4, 0, 0]
   door_start_pos: [0.90, 0.250, 0]

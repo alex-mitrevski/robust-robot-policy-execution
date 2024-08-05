@@ -50,6 +50,6 @@ python3 evaluate.py
    `https://github.com/NilsDengler/cluttered-pushing/tree/main`
 5. Official PyBullet documentation:  `https://pybullet.org/wordpress/index.php/forum-2/`
 6. Official gymanasium documentation: `https://gymnasium.farama.org/`
-7. Official Stable-baselines3 documentation: https://stable-baselines3.readthedocs.io/en/master/
+7. Official Stable-baselines3 documentation: `https://stable-baselines3.readthedocs.io/en/master/`
 
  Specific usages of above references are given as comments in the code scripts.

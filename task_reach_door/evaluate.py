@@ -7,8 +7,8 @@ Organization: Hochschule Bonn-Rhein-Sieg
 
 
 Description:
-This script evaluates the PPO model trained to reach the door. 
-The script loads the configuration file, creates the environment, loads the model, and evaluates the policy. 
+This script evaluates the PPO model trained to reach the door.
+The script loads the configuration file, creates the environment, loads the model, and evaluates the policy.
 
 
 References:
@@ -44,7 +44,7 @@ def main():
     # Load model
     model = PPO.load(eval_config["model_path"], env=env, verbose=eval_config["verbose"])
 
-    # This function is adapted from the implementation of 
+    # This function is adapted from the implementation of
     # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_evaluator.py#L44
     # Evaluate policy
     mean_reward, std_reward = evaluate_policy(

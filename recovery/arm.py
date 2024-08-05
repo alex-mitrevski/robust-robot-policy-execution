@@ -2,7 +2,7 @@
 Arm class for Kinova Gen3 robot to move the robot to a specified cartesian pose.
 
 Author: Bharath Santhanam
-Email: bahrathsanthanamdev@gmail.com
+Email: bharathsanthanamdev@gmail.com
 Organization: Hochschule Bonn-Rhein-Sieg
 
 
@@ -23,7 +23,7 @@ This script is based on:
  https://github.com/HBRS-SDP/ws23-door-opening/blob/main/src/door_opening/src/scripts/force_transformation.py
  https://github.com/HBRS-SDP/ws23-door-opening/blob/main/src/door_opening/src/scripts/open_door.py
 
-The below class "Arm" is completely adapted from the above scripts.
+The below class "Arm" is completely adapted from the above scripts. Specific lines referred are mentioned in the code.
 
 source gitHub Repository: ws23-door-opening
 source repo Authors: PRan3, Maira Liaqat, Oviya Rajavel.
@@ -83,9 +83,12 @@ class Arm:
         self.agent_pose = []
         self.block_pose = []
 
+    # function directly from https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/open_door.py#L175
     def cb_action_topic(self, notif):
         self.last_action_notif_type = notif.action_event
-
+    
+    # function adapted from 
+    # https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/open_door.py#L221
     def move_to_pose(self, pose):
         """
         Move the robot to the specified pose
@@ -124,6 +127,8 @@ class Arm:
         action_completed = self.wait_for_action_end_or_abort()
         return action_completed
 
+    # function directly from
+    # https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/open_door.py#L178
     def wait_for_action_end_or_abort(self):
         while not rospy.is_shutdown():
             if self.last_action_notif_type == ActionEvent.ACTION_END:

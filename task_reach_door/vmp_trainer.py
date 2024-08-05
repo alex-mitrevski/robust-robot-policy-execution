@@ -18,7 +18,6 @@ Referred to the stable-baselines3 documentations for specific in-built functions
 
 """
 
-
 import os
 import time
 import uuid
@@ -79,7 +78,7 @@ def main(config_path):
     config = load_config(config_path)
     env = create_environment()
 
-    #adapted from https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_trainer.py#L87
+    # adapted from https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_trainer.py#L87
     checkpoint_callback = CheckpointCallback(
         save_freq=config["checkpoint_save_freq"],
         save_path=join(config["model_save_path"], f"{str(uuid.uuid4())[:5]}"),
