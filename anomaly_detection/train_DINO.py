@@ -1,3 +1,16 @@
+"""
+Script to train the DINO model on the nominal images
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+References:
+This class DINO is directly adapted from the Lightly SSL implementation of DINO, given in the 
+official lightly SSL reposiory. The source can be found at : 
+https://github.com/lightly-ai/lightly/blob/master/examples/pytorch_lightning/dino.py
+Lightly SSL uses open-source MIT License. The license can be found at: https://github.com/lightly-ai/lightly/blob/master/LICENSE.txt
+"""
+
 import copy
 import pytorch_lightning as pl
 import torch
@@ -13,7 +26,8 @@ from pytorch_lightning.loggers import TensorBoardLogger
 
 import config
 
-
+# class direcly adapted from 
+# https://github.com/lightly-ai/lightly/blob/bf3441205f73958382b83ec058f58fe3baf6a55f/examples/pytorch_lightning/dino.py#L19
 class DINO(pl.LightningModule):
     def __init__(self):
         super().__init__()

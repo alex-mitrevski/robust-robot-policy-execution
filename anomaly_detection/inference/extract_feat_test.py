@@ -1,10 +1,23 @@
 """
+Script to extract features from the images in the dataset and compute the anomaly scores using the nearest neighbors model
+
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+Description:
 Takes the directory that has many folders containing datasets as input
 Loads the trained DINO model
 Extracts features from the images in the dataset
 Normalizes the features using the mean and std of the nominal features
 Computes the anomaly scores using the KNN model
 Saves the features and anomaly scores in the directory specified
+
+References:
+1. Nearest neighbours estimation using Sklearn library: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors
+2. Anomaly detection model using LightlySSL, the source can be found at : 
+https://github.com/lightly-ai/lightly/blob/master/examples/pytorch_lightning/dino.py
+Lightly SSL uses open-source MIT License. The license can be found at: https://github.com/lightly-ai/lightly/blob/master/LICENSE.txt
 
 """
 
@@ -38,7 +51,8 @@ import matplotlib.pyplot as plt
 
 import inference_config as config
 
-
+# class direcly adapted from 
+# https://github.com/lightly-ai/lightly/blob/bf3441205f73958382b83ec058f58fe3baf6a55f/examples/pytorch_lightning/dino.py#L19
 class DINO(pl.LightningModule):
     def __init__(self):
         super().__init__()

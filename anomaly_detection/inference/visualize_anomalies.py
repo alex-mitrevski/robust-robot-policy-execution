@@ -1,3 +1,14 @@
+"""
+Utils to get statistics of the features and visualize the anomalies
+
+author: Bharath Santhanam
+email:bharathsanthanamdev@gmail.com
+organization: Hochschule Bonn-Rhein-Sieg
+
+
+"""
+
+
 import torch
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt

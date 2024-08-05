@@ -1,7 +1,7 @@
 """
 Script to perform Zero shot detection using Gemini Vision language models
 Author: Bharath Santhanam
-Email: bahrathsanthanamdev@gmail.com
+Email: bharathsanthanamdev@gmail.com
 Organization: Hochschule Bonn-Rhein-Sieg
 
 

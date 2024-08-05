@@ -1,11 +1,15 @@
 """
-Compute the metrics for the anomaly detection task using the distances and true labels.
-The distances are the distances of the test frames from the nearest training frame, and
-the true labels indicate whether the test frames are normal or anomalous.
-The function should generate and plot the ROC and Precision-Recall curves,
-and print the optimal thresholds for both curves.
-The function should take the distances and true labels as input
-and return the optimal thresholds for both curves.
+Script to calculate the optimal threshold for anomaly detection using Precision-Recall curve plotted for various thresholds.
+Optimal trheshold is the one that maximizes the F1 score.
+
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+References:
+Sklearn library for precision recall curve and AUC calculation
+1. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_curve.html
+2. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.auc.html
 """
 
 import numpy as np
@@ -67,15 +71,14 @@ if __name__ == "__main__":
         type=str,
         help="path to the json file containing the distances and true labels",
         default=config.THRESH_CALC_DATASET_PATH,
-        # default="/home/bharath/AD_repo/inference/features_DINO_batch2/features_28_05/val/val_13_06_batch1_2_train"
     )
     args = parser.parse_args()
     # each json corresponds to a test file. aggregate all distances and true labels to lists
     distances = []
     true_labels = []
 
-    # I have multiple folders under which there is json with anomaly scores and true labels
-    # I need to iterate over all the json files in all the folders and get the scores and labels
+    # Have multiple folders under which there is json with anomaly scores and true labels
+    # need to iterate over all the json files in all the folders and get the scores and labels
 
     for root, dirs, files in os.walk(args.scores_and_labels_path):
         for file in files:

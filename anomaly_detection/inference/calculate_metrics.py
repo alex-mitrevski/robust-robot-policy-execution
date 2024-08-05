@@ -1,10 +1,16 @@
 """
-Compute the metrics for the anomaly detection task using the distances and true labels.
-The distances are the distances of the test frames from the nearest training frame, and
-the true labels indicate whether the test frames are normal or anomalous.
-The function should generate and plot the ROC and Precision-Recall curves,
-and print the optimal thresholds for both curves.
-Compute the precision, recall and F1 Score at the given threshold
+Script to calculate the Precision, Recall and F1 Score for the chosen threshold
+
+Author: Bharath Santhanam
+Email:bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+References:
+Sklearn library for precision,recall and F1 score calculation
+1. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html
+2. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html
+3. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html
+
 """
 
 import numpy as np
@@ -22,49 +28,6 @@ import json
 import os
 import inference_config as config
 
-
-def compute_metrics(distances, true_labels):
-    # Generate Precision-Recall data
-    precision, recall, pr_thresholds = precision_recall_curve(
-        true_labels, distances, pos_label=1
-    )
-
-    pr_auc = auc(recall, precision)
-
-    # Plot Precision-Recall Curve
-    # plt.subplot(1, 2, 2)
-    plt.plot(recall, precision, color="green", label="PR curve")
-    plt.xlabel("Recall")
-    plt.ylabel("Precision")
-    plt.title("Precision-Recall Curve")
-    plt.legend(loc="lower left")
-    # add a red dot for the optimal threshold at index 308 and write the threshold value
-
-    # Finding optimal thresholds
-    # # For ROC: You might choose the threshold that maximizes the TPR while minimizing the FPR
-    # roc_optimal_idx = np.argmax(tpr - fpr)
-
-    f1_scores = 2 * (precision * recall) / (precision + recall)
-    pr_optimal_idx = np.argmax(f1_scores)
-    pr_optimal_threshold = pr_thresholds[pr_optimal_idx]
-
-    print("Optimal PR Threshold:", pr_optimal_threshold)
-    plt.scatter(recall[pr_optimal_idx], precision[pr_optimal_idx], color="red")
-
-    # shrink pr_optimal_threshold to 2 decimal places
-    pr_optimal_threshold = round(pr_optimal_threshold, 2)
-    plt.annotate(
-        f"Threshold = {pr_optimal_threshold}",
-        (recall[pr_optimal_idx], precision[pr_optimal_idx]),
-        textcoords="offset points",
-        xytext=(260, -20),
-        ha="left",
-        color="red",
-    )
-
-    plt.tight_layout()
-    plt.savefig("pr_curve.png")
-    plt.show()
 
 
 if __name__ == "__main__":
@@ -102,6 +65,9 @@ if __name__ == "__main__":
     # wrtie code to calculate precision, recall and F1 Score at the threshold of 26.16
 
     predicted_labels = [1 if dist > threshold else 0 for dist in distances]
+
+    # directly from the sklearn library to calculate precision, recall and F1 score
+    # https://scikit-learn.org/stable/api/sklearn.metrics.html
     precision = precision_score(true_labels, predicted_labels)
     recall = recall_score(true_labels, predicted_labels)
     f1 = f1_score(true_labels, predicted_labels)

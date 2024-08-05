@@ -1,0 +1,2 @@
+features, anom scores for validation dataset is stored here.
+This is used for threshold estimation
