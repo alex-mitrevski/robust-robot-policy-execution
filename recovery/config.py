@@ -13,4 +13,4 @@ DINO_CHECKPT_PATH = "/home/bharath/MA_Thesis_Master_repo/Robot_task_execution_mo
 # nominal_features_path = "/home/bharath/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/ROS_integration/train_features.pt"
 # nominal_features on batch 1,2 and 3
 NOMINAL_FEATURES_PATH = "/home/bharath/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/ROS_integration/nominal_features.pt"
-SAVE_IMG_ANOMSCORE_DIR = "/home/bharath/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/ROS_integration/save_rollouts/"
+SAVE_IMG_ANOMSCORE_DIR = "./save_rollouts/"

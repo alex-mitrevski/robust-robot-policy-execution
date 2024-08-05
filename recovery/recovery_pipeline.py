@@ -87,7 +87,15 @@ def get_img_tensor(img_callback, save_path, i):
 
     # open the saved image
     img = PILImage.open(save_path + "image_{}.png".format(i))
-
+    preprocess = transforms.Compose(
+        [
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     image_tensor = preprocess(img).unsqueeze(0).to(device)
     return image_tensor, image
 
