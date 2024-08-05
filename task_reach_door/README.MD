@@ -33,16 +33,16 @@ Based on whether the model is trained with or without Domain randomization place
 
 ```
 source venv/bin/activate
-cd ./tas_reach_door
+cd ./task_reach_door
 python3 evaluate.py
 ```
 
 #### References:
 
-1. The URDF for Kinova arm is from the official Kinova kortex repository
+1. The URDF for Kinova arm is from the official Kinova kortex repository and it is available in `./urdf/kortex_description`
    ```
-   * https://github.com/Kinovarobotics/ros_kortex/tree/noetic-devel/kortex_description/arms/gen3/7dof/urdf`
-   * https://github.com/Kinovarobotics/ros_kortex/tree/noetic-devel/kortex_description/grippers/robotiq_2f_85/urdf
+   https://github.com/Kinovarobotics/ros_kortex/tree/noetic-devel/kortex_description/arms/gen3/7dof/urdf
+   https://github.com/Kinovarobotics/ros_kortex/tree/noetic-devel/kortex_description/grippers/robotiq_2f_85/urdf
    ```
 2. The door and the handle is designed using the online CAD tool and imported to the URDF using the STL format. `https://www.onshape.com/en/`
 3. We referred to the following repo to understand the structure of `./task_reach_door/vmp_trainer.py` and `./task_reach_door/evaluate.py`Repo:` https://github.com/NJ-2020-thesis/PyRep/tree/feature/examples/vmp`
@@ -52,4 +52,4 @@ python3 evaluate.py
 6. Official gymanasium documentation: `https://gymnasium.farama.org/`
 7. Official Stable-baselines3 documentation: `https://stable-baselines3.readthedocs.io/en/master/`
 
- Specific usages of above references are given as comments in the code scripts.
+ Specific usages of above references are also given as comments in the code scripts.
