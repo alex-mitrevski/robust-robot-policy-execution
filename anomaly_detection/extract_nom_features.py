@@ -16,6 +16,7 @@ from pytorch_lightning.loggers import TensorBoardLogger
 
 import config
 
+
 class DINO(pl.LightningModule):
     def __init__(self):
         super().__init__()
@@ -29,7 +30,9 @@ class DINO(pl.LightningModule):
         deactivate_requires_grad(self.teacher_backbone)
         deactivate_requires_grad(self.teacher_head)
 
-        self.criterion = DINOLoss(warmup_teacher_temp_epochs=config.WARMUP_TEACHER_TEMP_EPOCHS)
+        self.criterion = DINOLoss(
+            warmup_teacher_temp_epochs=config.WARMUP_TEACHER_TEMP_EPOCHS
+        )
 
     def forward(self, x):
         y = self.student_backbone(x).flatten(start_dim=1)
@@ -67,6 +70,7 @@ class DINO(pl.LightningModule):
             features = features.flatten(start_dim=1)
         return features
 
+
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -75,12 +79,14 @@ def main():
     model.to(device)
     model.eval()
 
-    preprocess = transforms.Compose([
-        transforms.Resize(config.RESIZE),
-        transforms.CenterCrop(config.CENTER_CROP),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=config.NORMALIZE_MEAN, std=config.NORMALIZE_STD),
-    ])
+    preprocess = transforms.Compose(
+        [
+            transforms.Resize(config.RESIZE),
+            transforms.CenterCrop(config.CENTER_CROP),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=config.NORMALIZE_MEAN, std=config.NORMALIZE_STD),
+        ]
+    )
 
     features_list = []
     for img in sorted(os.listdir(config.IMAGE_PATH)):
@@ -91,10 +97,13 @@ def main():
             features = model.extract_features(image_tensor)
         features_list.append(features)
 
-    embeddings_tensor = torch.stack([embedding.squeeze().cpu() for embedding in features_list])
+    embeddings_tensor = torch.stack(
+        [embedding.squeeze().cpu() for embedding in features_list]
+    )
     print(embeddings_tensor.shape)
 
     torch.save(features_list, config.FEATURES_SAVE_PATH)
+
 
 if __name__ == "__main__":
     main()

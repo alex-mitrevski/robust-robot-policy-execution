@@ -1,6 +1,6 @@
 # Dataset
 # DATASET_PATH = "/home/bsanth2s/AD_repo/Training_data_master_AD/train_n_5_batach_1_2_3"
-DATASET_PATH="./datasets/train_n_5_batach_1_2_3"
+DATASET_PATH = "./datasets/train_n_5_batach_1_2_3"
 # DataLoader
 BATCH_SIZE = 64
 NUM_WORKERS = 12
@@ -26,7 +26,7 @@ EXPERIMENT_NAME = "DINO_ep120"
 # CHECKPOINT_PATH = "/home/bsanth2s/AD_repo/trained_model_DINO/6_6_2024/DINO_ep100/version_0/checkpoints/epoch=99-step=2900.ckpt"
 CHECKPOINT_PATH = "./checkpoints/epoch=99-step=2900.ckpt"
 # IMAGE_PATH = "/home/bsanth2s/AD_repo/Training_data_master_AD/train_n_5_batach_1_2_3"
-IMAGE_PATH="./datasets/train_n_5_batach_1_2_3"
+IMAGE_PATH = "./datasets/train_n_5_batach_1_2_3"
 # FEATURES_SAVE_PATH = "/home/bsanth2s/MA_Thesis_Master_repo/Robot_task_execution_monitoring_and_recovery/monitoring/detecting_anomalies_ssl/anomaly_detection/features/nominal_features.pt"
 FEATURES_SAVE_PATH = "./features/nominal_features.pt"
 # Image Preprocessing

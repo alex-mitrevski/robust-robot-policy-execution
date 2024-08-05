@@ -1,23 +1,29 @@
 """
 Compute the metrics for the anomaly detection task using the distances and true labels.
 The distances are the distances of the test frames from the nearest training frame, and
-the true labels indicate whether the test frames are normal or anomalous. 
-The function should generate and plot the ROC and Precision-Recall curves, 
-and print the optimal thresholds for both curves. 
+the true labels indicate whether the test frames are normal or anomalous.
+The function should generate and plot the ROC and Precision-Recall curves,
+and print the optimal thresholds for both curves.
 Compute the precision, recall and F1 Score at the given threshold
 """
 
 import numpy as np
-from sklearn.metrics import roc_curve, precision_recall_curve, auc,precision_score, recall_score, f1_score
+from sklearn.metrics import (
+    roc_curve,
+    precision_recall_curve,
+    auc,
+    precision_score,
+    recall_score,
+    f1_score,
+)
 import matplotlib.pyplot as plt
 import argparse
 import json
 import os
 import inference_config as config
 
-def compute_metrics(distances, true_labels):
-   
 
+def compute_metrics(distances, true_labels):
     # Generate Precision-Recall data
     precision, recall, pr_thresholds = precision_recall_curve(
         true_labels, distances, pos_label=1
@@ -33,11 +39,10 @@ def compute_metrics(distances, true_labels):
     plt.title("Precision-Recall Curve")
     plt.legend(loc="lower left")
     # add a red dot for the optimal threshold at index 308 and write the threshold value
-    
+
     # Finding optimal thresholds
     # # For ROC: You might choose the threshold that maximizes the TPR while minimizing the FPR
     # roc_optimal_idx = np.argmax(tpr - fpr)
- 
 
     f1_scores = 2 * (precision * recall) / (precision + recall)
     pr_optimal_idx = np.argmax(f1_scores)
@@ -52,7 +57,7 @@ def compute_metrics(distances, true_labels):
         f"Threshold = {pr_optimal_threshold}",
         (recall[pr_optimal_idx], precision[pr_optimal_idx]),
         textcoords="offset points",
-        xytext=(260,-20),
+        xytext=(260, -20),
         ha="left",
         color="red",
     )
@@ -68,8 +73,11 @@ if __name__ == "__main__":
         "--scores_and_labels_path",
         type=str,
         help="path to the json file containing the distances and true labels",
-        default=config.THRESH_CALC_DATASET_PATH    )
-    parser.add_argument("--threshold", type=float, help="threshold for anomaly detection", default=29.7)
+        default=config.THRESH_CALC_DATASET_PATH,
+    )
+    parser.add_argument(
+        "--threshold", type=float, help="threshold for anomaly detection", default=29.7
+    )
     args = parser.parse_args()
     # each json corresponds to a test file. aggregate all distances and true labels to lists
     distances = []
@@ -86,8 +94,8 @@ if __name__ == "__main__":
                     scores_and_labels = json.load(f)
                     distances.extend(scores_and_labels["anomaly_scores_DINO"])
                     true_labels.extend(scores_and_labels["true_labels"])
-    
-    #count 1 and 0 in true labels
+
+    # count 1 and 0 in true labels
     print("True labels count: ", len(true_labels))
     print("Anomalies count: ", true_labels.count(1))
     print("Nominal frames count: ", true_labels.count(0))
@@ -100,8 +108,3 @@ if __name__ == "__main__":
     print("Precision: ", precision)
     print("Recall: ", recall)
     print("F1 Score: ", f1)
-
-
-
-
-

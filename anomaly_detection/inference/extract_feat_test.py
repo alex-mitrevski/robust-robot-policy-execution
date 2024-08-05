@@ -37,6 +37,8 @@ import torch
 import matplotlib.pyplot as plt
 
 import inference_config as config
+
+
 class DINO(pl.LightningModule):
     def __init__(self):
         super().__init__()
@@ -84,7 +86,6 @@ class DINO(pl.LightningModule):
 
     def extract_features(self, x):
         with torch.no_grad():
-
             features = self.student_backbone(x)
             # Flatten the features except for the batch dimension
             features = features.flatten(start_dim=1)
@@ -127,14 +128,14 @@ def main():
         "--model_dir",
         type=str,
         help="Directory that has the trained model",
-        default=config.MODEL_DIR 
+        default=config.MODEL_DIR,
         # default="/home/bharath/AD_repo/inference/features_DINO_batch2/trained_model_DINO_7_6_2024/6_6_2024/DINO_ep100/version_0/checkpoints/epoch=99-step=2900.ckpt"
     )
     parser.add_argument(
         "--nominal_features_path",
         type=str,
         help="File path where the nominal features are saved!",
-        default=config.NOMINAL_FEATURES_PATH, # old train features with batch 1 and 2
+        default=config.NOMINAL_FEATURES_PATH,  # old train features with batch 1 and 2
         # default = "/home/bharath/AD_repo/inference/features_DINO_batch2/Datasets_inference/nominal_features_7_6_2024/nominal_features.pt"
     )
     parser.add_argument(
@@ -252,4 +253,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

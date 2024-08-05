@@ -13,6 +13,7 @@ from pytorch_lightning.loggers import TensorBoardLogger
 
 import config
 
+
 class DINO(pl.LightningModule):
     def __init__(self):
         super().__init__()
@@ -26,7 +27,9 @@ class DINO(pl.LightningModule):
         deactivate_requires_grad(self.teacher_backbone)
         deactivate_requires_grad(self.teacher_head)
 
-        self.criterion = DINOLoss(warmup_teacher_temp_epochs=config.WARMUP_TEACHER_TEMP_EPOCHS)
+        self.criterion = DINOLoss(
+            warmup_teacher_temp_epochs=config.WARMUP_TEACHER_TEMP_EPOCHS
+        )
 
     def forward(self, x):
         y = self.student_backbone(x).flatten(start_dim=1)
@@ -57,6 +60,7 @@ class DINO(pl.LightningModule):
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=config.LEARNING_RATE)
 
+
 def main():
     model = DINO()
 
@@ -86,6 +90,7 @@ def main():
     )
 
     trainer.fit(model=model, train_dataloaders=dataloader)
+
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,9 @@
 """
 Compute the metrics for the anomaly detection task using the distances and true labels.
 The distances are the distances of the test frames from the nearest training frame, and
-the true labels indicate whether the test frames are normal or anomalous. 
-The function should generate and plot the ROC and Precision-Recall curves, 
-and print the optimal thresholds for both curves. 
+the true labels indicate whether the test frames are normal or anomalous.
+The function should generate and plot the ROC and Precision-Recall curves,
+and print the optimal thresholds for both curves.
 The function should take the distances and true labels as input
 and return the optimal thresholds for both curves.
 """
@@ -16,8 +16,8 @@ import json
 import os
 import inference_config as config
 
+
 def compute_metrics(distances, true_labels):
-    
     # Generate Precision-Recall data
     precision, recall, pr_thresholds = precision_recall_curve(
         true_labels, distances, pos_label=1
@@ -28,11 +28,10 @@ def compute_metrics(distances, true_labels):
     # Plot Precision-Recall Curve
     # plt.subplot(1, 2, 2)
     plt.plot(recall, precision, color="green", label="PR curve")
-    plt.xlabel("Recall",fontsize=12)
-    plt.ylabel("Precision",fontsize=12)
-    plt.title("Precision-Recall Curve",fontsize=12)
+    plt.xlabel("Recall", fontsize=12)
+    plt.ylabel("Precision", fontsize=12)
+    plt.title("Precision-Recall Curve", fontsize=12)
     plt.legend(loc="lower left")
-   
 
     f1_scores = 2 * (precision * recall) / (precision + recall)
     pr_optimal_idx = np.argmax(f1_scores)
@@ -51,7 +50,7 @@ def compute_metrics(distances, true_labels):
         # f"Threshold: \n{29.70}",
         (recall[pr_optimal_idx], precision[pr_optimal_idx]),
         textcoords="offset points",
-        xytext=(5,-20),
+        xytext=(5, -20),
         ha="left",
         color="red",
     )
@@ -67,9 +66,8 @@ if __name__ == "__main__":
         "--scores_and_labels_path",
         type=str,
         help="path to the json file containing the distances and true labels",
-        default=config.THRESH_CALC_DATASET_PATH
+        default=config.THRESH_CALC_DATASET_PATH,
         # default="/home/bharath/AD_repo/inference/features_DINO_batch2/features_28_05/val/val_13_06_batch1_2_train"
-
     )
     args = parser.parse_args()
     # each json corresponds to a test file. aggregate all distances and true labels to lists
@@ -88,13 +86,9 @@ if __name__ == "__main__":
                     distances.extend(scores_and_labels["anomaly_scores_DINO"])
                     true_labels.extend(scores_and_labels["true_labels"])
 
-    #count 1 and 0 in true labels
+    # count 1 and 0 in true labels
     print("True labels count: ", len(true_labels))
     print("True labels count 1: ", true_labels.count(1))
     print("True labels count 0: ", true_labels.count(0))
     # import ipdb;ipdb.set_trace()
     compute_metrics(distances, true_labels)
-
-
-
-

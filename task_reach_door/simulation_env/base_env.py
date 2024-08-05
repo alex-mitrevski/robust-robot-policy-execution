@@ -2,21 +2,22 @@ import pybullet as p
 import numpy as np
 import yaml
 
+
 class DoorEnv(object):
     def __init__(self, config_path):
-        with open(config_path, 'r') as config_file:
+        with open(config_path, "r") as config_file:
             self.config = yaml.safe_load(config_file)
-        self.end_effector_link_index = self.config['robot']['end_effector_link_index']
+        self.end_effector_link_index = self.config["robot"]["end_effector_link_index"]
 
     def get_camera_params(self):
-        camera_link_index = self.config['camera']['link_index']
+        camera_link_index = self.config["camera"]["link_index"]
         state = p.getLinkState(
             self.kinova, camera_link_index, computeForwardKinematics=True
         )
         camera_pos, camera_ori = state[0], state[1]
 
-        camera_forward_vector = self.config['camera']['forward_vector']
-        camera_up_vector = self.config['camera']['up_vector']
+        camera_forward_vector = self.config["camera"]["forward_vector"]
+        camera_up_vector = self.config["camera"]["up_vector"]
         camera_forward_vector = p.rotateVector(camera_ori, camera_forward_vector)
         camera_up_vector = p.rotateVector(camera_ori, camera_up_vector)
 
@@ -30,10 +31,10 @@ class DoorEnv(object):
             camera_pos, camera_target_pos, camera_up_vector
         )
         projection_matrix = p.computeProjectionMatrixFOV(
-            fov=self.config['camera']['projection_matrix']['fov'],
-            aspect=self.config['camera']['projection_matrix']['aspect'],
-            nearVal=self.config['camera']['projection_matrix']['near_val'],
-            farVal=self.config['camera']['projection_matrix']['far_val']
+            fov=self.config["camera"]["projection_matrix"]["fov"],
+            aspect=self.config["camera"]["projection_matrix"]["aspect"],
+            nearVal=self.config["camera"]["projection_matrix"]["near_val"],
+            farVal=self.config["camera"]["projection_matrix"]["far_val"],
         )
         return view_matrix, projection_matrix
 
@@ -51,10 +52,10 @@ class DoorEnv(object):
             p.resetJointState(self.kinova, joint_index, joint_angle)
         self.state_id = p.saveState()
         return self.state_id
-    
+
     def draw_target_axes(self, target_pos1, target_pos2, target_pos3):
-        axis_length = self.config['debug']['axis_length']
-        axis_width = self.config['debug']['axis_width']
+        axis_length = self.config["debug"]["axis_length"]
+        axis_width = self.config["debug"]["axis_width"]
         for target_pos in [target_pos1, target_pos2, target_pos3]:
             x_end = target_pos + np.array([axis_length, 0, 0])
             y_end = target_pos + np.array([0, axis_length, 0])
@@ -65,9 +66,13 @@ class DoorEnv(object):
             p.addUserDebugLine(target_pos, z_end, [0, 0, 1], axis_width)
 
     def randomize_color(self, base_color):
-        variation_range = self.config['domain_randomization']['color_variation_range']
+        variation_range = self.config["domain_randomization"]["color_variation_range"]
         randomized_color = [
-            np.clip(base_color[i] + np.random.uniform(-variation_range, variation_range), 0, 1)
+            np.clip(
+                base_color[i] + np.random.uniform(-variation_range, variation_range),
+                0,
+                1,
+            )
             for i in range(3)
         ] + [base_color[3]]  # Keep the alpha channel unchanged
         return randomized_color
