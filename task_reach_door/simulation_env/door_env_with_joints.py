@@ -1,6 +1,5 @@
 """
 
-
 ReachDoor class is the primary class that integrates the simulatiion envrironment with the gymnasium interface.
 
 Author: Bharath Santhanam
@@ -284,7 +283,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
         info = {}
         self.setup_scene()
         return self._get_state(), info
-
+    # The entire setup_scene function is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L290
     def setup_scene(self):
         p.restoreState(self.state_id)
         current_end_effector_state = p.getLinkState(
