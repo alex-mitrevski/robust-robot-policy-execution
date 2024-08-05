@@ -1,3 +1,25 @@
+"""
+DoorEnv class is a base class that is used by the door_env_with_joints.py  scripts
+
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+
+Description:
+This script contains the DoorEnv class which is a base class that is used by the door_env_with_joints.py
+scripts. This class contains methods that are used to set the initial joint positions of the robot,
+get the camera parameters, check for collisions between the robot and objects, draw target axes, and randomize colors.
+
+
+References:
+This script is based on:
+
+Refered to the in-built functions of PyBullet using the official PyBullet documentation: https://pybullet.org/wordpress/index.php/forum-2/
+Some part of this code is referred from the cluttered pushing repository: https://github.com/NilsDengler/cluttered-pushing/tree/main. Specific lines are mentioned in the code.
+
+"""
+
 import pybullet as p
 import numpy as np
 import yaml
@@ -10,7 +32,12 @@ class DoorEnv(object):
         self.end_effector_link_index = self.config["robot"]["end_effector_link_index"]
 
     def get_camera_params(self):
+        """
+        Compute the view matrix and projection matrix of the camera
+        """
         camera_link_index = self.config["camera"]["link_index"]
+
+        # referred from https://github.com/NilsDengler/cluttered-pushing/blob/48171e76668656f911681c359dedf87f46922a52/push_gym/push_gym/environments/base_environment.py#L75C21-L75C23
         state = p.getLinkState(
             self.kinova, camera_link_index, computeForwardKinematics=True
         )
@@ -48,6 +75,8 @@ class DoorEnv(object):
     def set_initial_joint_positions(self, joint_angles_deg):
         joint_angles_rad = [np.radians(angle) for angle in joint_angles_deg]
         joint_indices = range(7)
+
+        # Referred from https://github.com/NilsDengler/cluttered-pushing/blob/48171e76668656f911681c359dedf87f46922a52/push_gym/push_gym/environments/ur5_environment.py#L153C12-L153C84
         for joint_index, joint_angle in zip(joint_indices, joint_angles_rad):
             p.resetJointState(self.kinova, joint_index, joint_angle)
         self.state_id = p.saveState()

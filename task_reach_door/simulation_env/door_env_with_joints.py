@@ -1,5 +1,25 @@
 """
-Reference: https://github.com/NJ-2020-thesis/PyRep/blob/feature/examples/vmp/vmp_environment.py
+
+
+ReachDoor class is the primary class that integrates the simulatiion envrironment with the gymnasium interface.
+
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+
+Description:
+This script integrates the simulation environment with the gymanasium interface and it contains functions for setting the sim environment, stepping and resetting the environment, obtain the state
+of the environment and calculate rewards
+
+
+References:
+This script is based on:
+
+The entire structure of this script is adapted from  https://github.com/NJ-2020-thesis/PyRep/blob/feature/examples/vmp/vmp_environment.py . Specifc lines referred are mentioned in the code.
+Referred to the in-built functions of PyBullet using the official PyBullet documentation: https://pybullet.org/wordpress/index.php/forum-2/
+Referred to the in-built functions of Gymnasium using the official Gymnasium documentation: https://gymnasium.farama.org/
+Some part of this code is referred from the cluttered pushing repository: https://github.com/NilsDengler/cluttered-pushing/tree/main. Specific lines referred are are mentioned in the code.
 
 """
 
@@ -60,6 +80,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
         self.episode_length = self.config["env"]["episode_length"]
         self.step_counter = 0
 
+    # this function is adapted from
+    # https://github.com/NilsDengler/cluttered-pushing/blob/48171e76668656f911681c359dedf87f46922a52/push_gym/push_gym/environments/base_environment.py#L63C1-L63C38
     def reset_base_simulation(self):
         p.resetSimulation()
 
@@ -126,6 +148,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
             self.door, self.config["visual_shape"]["knob"], rgbaColor=random_lever_color
         )
 
+    # entire step is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L162
     def step(self, action):
         done = False
         truncated = False
@@ -213,6 +237,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
 
         return self._get_state(), reward, done, truncated, info
 
+    # entire function reward_distance_to_goal is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L254
     def reward_distance_to_goal(self):
         current_end_effector_state = p.getLinkState(
             self.kinova, self.end_effector_link_index, computeForwardKinematics=True
@@ -224,6 +250,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
 
         return min(dist1, dist2, dist3)
 
+    # entire function reward_success is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L276
     def reward_success(self):
         current_end_effector_state = p.getLinkState(
             self.kinova, self.end_effector_link_index, computeForwardKinematics=True
@@ -250,6 +278,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
             success_reward = self.config["reward"]["success_reward"]
         return success_reward, success
 
+    # The entire reset function is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L157
     def reset(self, seed=666):
         info = {}
         self.setup_scene()
@@ -267,6 +297,7 @@ class ReachDoor(DoorEnv, gymnasium.Env):
             size=3,
         )
         random_end_effector_pose = current_end_effector_pose + random_offset
+
         rand_start_joint_positions = p.calculateInverseKinematics(
             self.kinova,
             self.end_effector_link_index,
@@ -286,6 +317,8 @@ class ReachDoor(DoorEnv, gymnasium.Env):
             p.stepSimulation()
             time.sleep(0.02)
 
+    # the entire _get_state function is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L216
     def _get_state(self):
         view_matrix, projection_matrix = self.get_camera_params()
         width, height, rgb_img, depth_img, seg_img = p.getCameraImage(
@@ -319,5 +352,7 @@ class ReachDoor(DoorEnv, gymnasium.Env):
 
         return obv_space
 
+    # shutdown function is adapted from
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_environment.py#L344
     def shutdown(self):
         p.disconnect()

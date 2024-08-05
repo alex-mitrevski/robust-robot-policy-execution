@@ -1,3 +1,23 @@
+"""
+Evaluation script for the PPO model trained to reach the door.
+
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+
+Description:
+This script evaluates the PPO model trained to reach the door. 
+The script loads the configuration file, creates the environment, loads the model, and evaluates the policy. 
+
+
+References:
+This script is based on:
+The entire structure of this script is adapted from https://github.com/NJ-2020-thesis/PyRep/blob/feature/examples/vmp/vmp_evaluator.py . Specifc lines referred are mentioned in the code.
+Referred to the stable-baselines3 documentations for specific in-built functions: https://stable-baselines3.readthedocs.io/en/master/
+
+"""
+
 import yaml
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
@@ -24,6 +44,8 @@ def main():
     # Load model
     model = PPO.load(eval_config["model_path"], env=env, verbose=eval_config["verbose"])
 
+    # This function is adapted from the implementation of 
+    # https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_evaluator.py#L44
     # Evaluate policy
     mean_reward, std_reward = evaluate_policy(
         model,

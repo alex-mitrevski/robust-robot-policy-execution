@@ -1,3 +1,24 @@
+"""
+Traning script for the PPO model trained to reach the door.
+
+Author: Bharath Santhanam
+Email: bharathsanthanamdev@gmail.com
+Organization: Hochschule Bonn-Rhein-Sieg
+
+
+Description:
+This script trains the PPO model
+The script loads the configuration file, creates the environment, loads the model, and trains the policy.
+
+
+References:
+This script is based on:
+The entire structure of this script is adapted from https://github.com/NJ-2020-thesis/PyRep/blob/feature/examples/vmp/vmp_trainer.py. Specifc lines referred are mentioned in the code.
+Referred to the stable-baselines3 documentations for specific in-built functions: https://stable-baselines3.readthedocs.io/en/master/
+
+"""
+
+
 import os
 import time
 import uuid
@@ -58,6 +79,7 @@ def main(config_path):
     config = load_config(config_path)
     env = create_environment()
 
+    #adapted from https://github.com/NJ-2020-thesis/PyRep/blob/6f02f0b347654a4bf3fd561a044e00bf85754ba6/examples/vmp/vmp_trainer.py#L87
     checkpoint_callback = CheckpointCallback(
         save_freq=config["checkpoint_save_freq"],
         save_path=join(config["model_save_path"], f"{str(uuid.uuid4())[:5]}"),
