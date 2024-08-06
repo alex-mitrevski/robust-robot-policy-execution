@@ -53,21 +53,27 @@ from PIL import Image as PILImage
 
 
 class Arm:
+    #init function is adapted from https://github.com/HBRS-SDP/ws23-door-opening/blob/main/src/door_opening/src/scripts/force_transformation.py
     def __init__(self):
         self.last_action_notif_type = None
         self.action_topic_sub = None
         self.all_notifs_succeeded = True
 
         rospy.wait_for_service("/my_gen3/base/execute_action")
+
+        #directly from the source https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/force_transformation.py#L77
         self.execute_action = rospy.ServiceProxy(
             "/my_gen3/base/execute_action", ExecuteAction
         )
         rospy.wait_for_service("/my_gen3/base/activate_publishing_of_action_topic")
+
+        # directly from the source : https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/force_transformation.py#L89
         self.activate_publishing_of_action_notification = rospy.ServiceProxy(
             "/my_gen3/base/activate_publishing_of_action_topic",
             OnNotificationActionTopic,
         )
 
+        # directly from the source  : https://github.com/HBRS-SDP/ws23-door-opening/blob/c494867b53a7507a0fb48378265129844ab9d82a/src/door_opening/src/scripts/force_transformation.py#L262
         request = OnNotificationActionTopicRequest(input=NotificationOptions(0, 0, 0))
 
         try:

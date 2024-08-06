@@ -24,9 +24,9 @@ python3 extract_nom_features.py
 
 #### Threshold estimation
 
-During testing, we extract features of the test data and find the nearest neighbour to the training features estimated in the previous step. 
+During testing, we extract features of the test data and find the nearest neighbour to the training features estimated in the previous step.
 
-If the distance to the nearest neighbour exceeds a threshold, we flag the test image as an anomaly. To determine threshold, we have a labeled validation dataset containing both nominal and anomalous frames, which we use to extract features and plot Precision-Recall curve for a wide range of thresholds and estimate the thresholds corresponding to the maximum F1- score. 
+If the distance to the nearest neighbour exceeds a threshold, we flag the test image as an anomaly. To determine threshold, we have a labeled validation dataset containing both nominal and anomalous frames, which we use to extract features and plot Precision-Recall curve for a wide range of thresholds and estimate the thresholds corresponding to the maximum F1- score.
 
 Extract  features for the validation dataset. Use `inference_config.py` to adjust the parameters and paths if required. The important requirement is the `json` file that has the labelled start and end anomalous frames. The format of this json file can be found in ` ./inference/anom_frames_json directory.`
 
@@ -68,4 +68,13 @@ cd inference
 python3 extract_val_features.py
 python3 calculate_metrics.py
 
+```
+
+#### Zero shot detection
+
+We run some basic experiments for zero-shot anomaly detection using Gemini VIsion language models. It is required to have google cloud access and API Keys to access the model. Install dependencies from `./zero_shot_AD/requirements.txt`
+
+```
+cd zero_shot_AD
+python3 zero_shot_AD.py
 ```
