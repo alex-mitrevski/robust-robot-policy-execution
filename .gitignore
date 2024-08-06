@@ -6,3 +6,4 @@ task_reach_door/saved_models/with_DR/*
 task_reach_door/saved_models/without_DR/*
 anomaly_detection/zero_shot_AD/api.txt
 recovery/save_rollouts/*
+goal_classifier/*
