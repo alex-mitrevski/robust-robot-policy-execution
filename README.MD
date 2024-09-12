@@ -1,4 +1,4 @@
-### Master Thesis: Robust robot task execution using monitoring and recovery in anomalous conditions
+### Robust robot task execution using monitoring and recovery in anomalous conditions
 
 The project consists of three parts
 
